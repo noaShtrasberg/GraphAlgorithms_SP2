@@ -1,3 +1,5 @@
+// noashalom5@gmail.com
+
 #include "graph.hpp"
 #include "algorithms.hpp"
 
@@ -42,7 +44,6 @@ namespace graph {
             if (temp->vertex == dest) return temp->weight;
             temp = temp->next;
         }
-        cout << "This edge doesn't exist." << endl;
         return 0;
     }
 
@@ -56,7 +57,7 @@ namespace graph {
             return false;
         }      
 
-        // Check if the edge already exists
+        // Check if the edge is already exists
         Node* temp = adjList[src];
         while (temp) {
             if (temp->vertex == dest) {
@@ -86,7 +87,7 @@ namespace graph {
             cout << "Error: A vertex cannot have an edge to itself." << endl;
             return false;
         } 
-
+        // Check if the edge exists
         bool removed = false;
         Node* prev = nullptr;
         Node* temp = adjList[src];
@@ -97,15 +98,16 @@ namespace graph {
         if (temp) {
             if (prev) prev->next = temp->next;
             else adjList[src] = temp->next;
-            delete temp;
             removed = true;
+            delete temp;
         }
-
+        // The edge not exists
         if(!removed) {
             cout << "Edge does not exist." << endl;  
             return false;
         }
 
+        // Remove the edge from both directions
         prev = nullptr;
         temp = adjList[dest];
         while (temp && temp->vertex != src) {
@@ -117,15 +119,22 @@ namespace graph {
             else adjList[dest] = temp->next;
             delete temp;
         }
+        //delete prev;
+        //delete temp;
         return true;
     }
 
     bool Graph::isConnected() const {
-        Graph dfsTree = Algorithms::dfs(*this, 0); // Run DFS from vertex 0
+        Graph* dfsTree = Algorithms::dfs(*this, 0); // Run DFS from vertex 0
         int numEdges;
-        Edge* edges = dfsTree.getEdgesList(&numEdges);
-        if(numEdges >= dfsTree.getNumV() - 1)
+        Edge* edges = dfsTree->getEdgesList(&numEdges);
+        if(numEdges >= dfsTree->getNumV() - 1) {
+            delete[] edges;
+            delete dfsTree;
             return true;
+        }
+        delete[] edges;
+        delete dfsTree;
         return false; // A connected graph should have at least V-1 edges in its spanning tree
     }
 
@@ -135,10 +144,11 @@ namespace graph {
             cout << "Vertex " << i << ":";
             Node* listi = adjList[i];
             while (listi) {
-                cout << " -> (" << listi->vertex << ", " << listi->weight << ")";
+                cout << " -> (" << listi->vertex << ", w=" << listi->weight << ")";
                 listi = listi->next;
             }
             cout << endl;
+            delete listi;
         }
     }
 
@@ -155,7 +165,6 @@ namespace graph {
                 temp = temp->next;
             }
         }
-
         Edge* edges = new Edge[*numEdges];
         int index = 0;
 
@@ -172,7 +181,6 @@ namespace graph {
                 temp = temp->next;
             }
         }
-
         return edges;
     }
 }

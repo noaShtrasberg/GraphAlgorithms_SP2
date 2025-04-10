@@ -1,3 +1,5 @@
+// noashalom5@gmail.com
+
 #ifndef ALGORITHMS_HPP
 #define ALGORITHMS_HPP
 
@@ -15,6 +17,7 @@ private:
    
 public:
     Queue() : front(nullptr), rear(nullptr) {}
+    ~Queue();
    
     void entoqueue(int value);
     int defrqueue();
@@ -35,14 +38,15 @@ public:
     int find(int v);
     void union2roots(int v1, int v2);
 };
+
 namespace graph {
     class Algorithms {
     public:
-        static Graph bfs(const Graph& graph, int srcVertex);
-        static Graph dfs(const Graph& graph, int srcVertex);
-        static Graph dijkstra(Graph& graph, int srcVertex);
-        static Graph prim(const Graph& graph);
-        static Graph kruskal(Graph& graph);
+        static Graph* bfs(const Graph& graph, int srcVertex);
+        static Graph* dfs(const Graph& graph, int srcVertex);
+        static Graph* dijkstra(Graph& graph, int srcVertex);
+        static Graph* prim(const Graph& graph);
+        static Graph* kruskal(Graph& graph);
 };
 }
 

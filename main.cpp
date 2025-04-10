@@ -1,3 +1,5 @@
+// noashalom5@gmail.com
+
 #include "graph.hpp"
 #include "algorithms.hpp"
 #include <iostream>
@@ -22,24 +24,30 @@ int main() {
     graph.printGraph();
 
     cout << "\nBFS Tree from vertex 0:" << endl;
-    Graph bfsTree = Algorithms::bfs(graph, 0);
-    bfsTree.printGraph();
+    Graph* bfsTree = Algorithms::bfs(graph, 0);
+    bfsTree->printGraph();
 
     cout << "\nDFS Tree from vertex 2:" << endl;
-    Graph dfsTree = Algorithms::dfs(graph, 2);
-    dfsTree.printGraph();
+    Graph* dfsTree = Algorithms::dfs(graph, 2);
+    dfsTree->printGraph();
 
     cout << "\nDijkstra's Shortest Path Tree from vertex 4:" << endl;
-    Graph dijkstraTree = Algorithms::dijkstra(graph, 4);
-    dijkstraTree.printGraph();
+    Graph* dijkstraTree = Algorithms::dijkstra(graph, 4);
+    dijkstraTree->printGraph();
 
     cout << "\nMinimum Spanning Tree using Prim's Algorithm:" << endl;
-    Graph primTree = Algorithms::prim(graph);
-    primTree.printGraph();
+    Graph* primTree = Algorithms::prim(graph);
+    primTree->printGraph();
 
     cout << "\nMinimum Spanning Tree using Kruskal's Algorithm:" << endl;
-    Graph kruskalTree = Algorithms::kruskal(graph);
-    kruskalTree.printGraph();
+    Graph* kruskalTree = Algorithms::kruskal(graph);
+    kruskalTree->printGraph();
+
+    delete bfsTree;
+    delete dfsTree;
+    delete dijkstraTree;
+    delete primTree;
+    delete kruskalTree;
 
     return 0;
 }
